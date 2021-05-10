@@ -4,7 +4,7 @@ This docker image connects to given OpenVPN-server and creates socks5-proxy to l
 
 ## How does it work?
 
-Internet <-> OpenVPN-Server <-> SocksVPN [ OpenVPN Client <-> SSH-Server ] <-> Host-machine [ SSH-Client as SOCKS-proxy ] <-> Socks-client
+Internet <--> OpenVPN-Server <--> SocksVPN(OpenVPN Client <-- SSH-Server <-- SSH-Client <-- SOCKS-proxy) <--> Host-machine Socks-client
 
 ## How to use?
 
