@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 RUN apt-get update
 RUN apt install -y openvpn openssh-server sshpass
@@ -8,12 +8,7 @@ ADD credentials.ovpn /
 ADD ./start_proxy.sh /
 RUN chmod +x /start_proxy.sh
 
-RUN mkdir /var/run/sshd
-RUN echo 'StrictHostKeyChecking no' >> /etc/ssh/ssh_config
-RUN echo 'root:root' | chpasswd
-RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-
-EXPOSE 22
+RUN mkdir -p /run/sshd /root/.ssh && ssh-keygen -A && ssh-keygen -f /root/.ssh/id_rsa && cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
 CMD ["/start_proxy.sh"]
 #CMD ["/bin/bash"]
